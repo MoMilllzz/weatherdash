@@ -12,11 +12,11 @@ function initPage() {
     let searchHistory = JSON.parse(localStorage.getItem("search")) || [];
     console.log(searchHistory);
 
-    const APIKey ="c9a9ed03a355403f4cb9a36e931c0b4a"
+    const APIKey ="10c6fffd5a31380166d4a84098313e1e"
 
 function getWeather(cityName) {
 
-        let queryURL = "https://api.openweathermap.org/data/2.5/weather?q=" + cityName + "&appid=" + APIKey;
+        let queryURL = "api.openweathermap.org/data/2.5/weather?q={city name}&appid={10c6fffd5a31380166d4a84098313e1e}" + cityName + "&appid=" + APIKey;
         axios.get(queryURL)
         .then(function(response){
             console.log(response);
