@@ -4,13 +4,13 @@ let APIkey="";
 let queryurl ="";
 let currenturl = "";
 let citiesDiv = document.getElementById("searched_cities_container");
-//start with empty array
+
 let cities = []; 
 init(); 
 listClicker(); 
 searchClicker(); 
 
-//run function to pull saved cities from local storage and fill array with it
+
 function init(){
     let saved_cities = JSON.parse(localStorage.getItem("cities"));
 
@@ -21,13 +21,13 @@ function init(){
     renderButtons(); 
 }
 
-//sets localstorage item to cities array 
+
 function storeCities(){
     localStorage.setItem("cities", JSON.stringify(cities)); 
 }
 
 
-//render buttons for each element in cities array as a search history for user
+
 function renderButtons(){
     citiesDiv.innerHTML = ""; 
     if(cities == null){
@@ -45,7 +45,7 @@ function renderButtons(){
         listClicker();
       }
     }
-//on click function for search history buttons
+
 function listClicker(){
 $(".listbtn").on("click", function(event){
     console.log("anybody home?")
@@ -58,19 +58,19 @@ $(".listbtn").on("click", function(event){
 
 
 
-//on click function for main search bar
+
 function searchClicker() {
 $("#searchbtn").on("click", function(event){
     event.preventDefault();
     city = $(this).prev().val().trim()
     
-    //push the city user entered into cities array 
+   
     cities.push(city);
-    //make sure cities array.length is never more than 8 
+    
     if(cities.length > 8){
         cities.shift()
     }
-    //return from function early if form is blank
+    
     if (city == ""){
         return; 
     }
@@ -80,12 +80,12 @@ $("#searchbtn").on("click", function(event){
 })
 }
 
-//runs 2 API calls, one for current weather data and one for five-day forecast, then populates text areas
+
 function APIcalls(){
     
     url = "https://api.openweathermap.org/data/2.5/forecast?q=";    
     currenturl = "https://api.openweathermap.org/data/2.5/weather?q=";
-    APIkey = "&appid=5ce8439fd4264478d1da0b24a7cd547d";
+    APIkey = "&appid=10c6fffd5a31380166d4a84098313e1e";
     queryurl = url + city + APIkey;
     current_weather_url = currenturl + city + APIkey; 
     
@@ -97,13 +97,13 @@ function APIcalls(){
     }).then(function(response){
         let day_number = 0; 
         
-        //iterate through the 40 weather data sets
+        
         for(let i=0; i< response.list.length; i++){
             
-            //split function to isolate the time from the time/data aspect of weather data, and only select weather reports for 3pm
+            
             if(response.list[i].dt_txt.split(" ")[1] == "15:00:00")
             {
-                //if time of report is 3pm, populate text areas accordingly
+                
                 let day = response.list[i].dt_txt.split("-")[2].split(" ")[0];
                 let month = response.list[i].dt_txt.split("-")[1];
                 let year = response.list[i].dt_txt.split("-")[0];
@@ -121,7 +121,7 @@ function APIcalls(){
     });
 
 
-    //function to display data in main div 
+
      $.ajax({
          url:current_weather_url,
          method: "GET", 
